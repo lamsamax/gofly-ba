@@ -1,0 +1,152 @@
+'use client';
+
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
+
+const DESTINATIONS = [
+  { slug: 'kapadokija', name: 'Kapadokija & Istanbul', region: 'Turska', gradient: 'linear-gradient(160deg, #1a0800 0%, #3d1500 60%, #0d0400 100%)', transport: ['✈', '🚌', '🏨'], image: '/images/kapadokija.jpg' },
+  { slug: 'mauricijus', name: 'Mauricijus', region: 'Afrika', gradient: 'linear-gradient(160deg, #00111a 0%, #002a3d 60%, #000d14 100%)', transport: ['✈', '🏨'], image: '/images/mauricijus.jpg' },
+  { slug: 'bali', name: 'Bali', region: 'Indonezija', gradient: 'linear-gradient(160deg, #0a1a0f 0%, #1a3d22 60%, #060d09 100%)', transport: ['✈', '🚌', '🏨'], image: '/images/bali.webp' },
+  { slug: 'portugal', name: 'Portugal', region: 'Evropa', gradient: 'linear-gradient(160deg, #120a1a 0%, #2d1a40 60%, #0a0610 100%)', transport: ['✈', '🚌', '🏨'], image: '/images/portugal.webp' },
+];
+
+const TRANSPORT_LABELS: Record<string, string> = {
+  '✈': 'Avion',
+  '🚌': 'Autobus',
+  '🏨': 'Hotel',
+};
+
+function DestCard({ dest, index }: { dest: typeof DESTINATIONS[0]; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="group relative rounded-2xl overflow-hidden cursor-pointer"
+      style={{ height: '480px' }}
+    >
+      {/* Background gradient */}
+      {dest.image ? (
+  <img
+    src={dest.image}
+    alt={dest.name}
+    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+  />
+) : (
+  <div
+    className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+    style={{ background: dest.gradient }}
+  />
+)}
+
+      {/* Noise texture */}
+      <div className="absolute inset-0 opacity-[0.06]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+      }} />
+
+      {/* Bottom gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+      {/* Gold bottom border on hover */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[#c8a96e] opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
+
+      {/* Content bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-5">
+        <p className="text-[9px] tracking-[0.45em] uppercase text-white/40 mb-1.5">{dest.region}</p>
+        <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-white mb-4 leading-tight">
+          {dest.name}
+        </h3>
+
+        {/* Transport icons */}
+        <div className="flex items-center gap-2 mb-4">
+          {dest.transport.map((icon, i) => (
+            <div
+              key={i}
+              title={TRANSPORT_LABELS[icon]}
+              className="w-7 h-7 rounded-full flex items-center justify-center text-sm"
+              style={{ background: 'rgba(200,169,110,0.12)', border: '1px solid rgba(200,169,110,0.2)' }}
+            >
+              {icon}
+            </div>
+          ))}
+        </div>
+
+        {/* Saznaj više */}
+        <Link
+          href={`/destinacije/${dest.slug}`}
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[9px] tracking-[0.3em] uppercase transition-all duration-300 hover:bg-[rgba(200,169,110,0.2)]"
+          style={{
+            background: 'rgba(200,169,110,0.1)',
+            border: '1px solid rgba(200,169,110,0.25)',
+            color: '#c8a96e',
+          }}
+        >
+          Saznaj više →
+        </Link>
+      </div>
+    </motion.div>
+  );
+}
+
+export function Fleet() {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-5%' });
+
+  return (
+    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-40 border-t border-white/[0.04]">
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="mb-4"
+      >
+        <p className="mb-4 text-[10px] tracking-[0.55em] uppercase text-[#c8a96e]">
+          Odabrana Putovanja
+        </p>
+        <h2 className="font-[family-name:var(--font-cormorant)] text-5xl md:text-6xl font-light text-white">
+          Doživite Iskustvo
+        </h2>
+      </motion.div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 0.4 } : {}}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="text-xs tracking-[0.3em] uppercase text-white/40 mb-16"
+      >
+        Avantura u Luksuznom Stilu
+      </motion.p>
+
+      {/* 4 Cards — 2 columns on mobile, 4 on desktop */}
+      {inView && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {DESTINATIONS.map((dest, i) => (
+            <DestCard key={dest.slug} dest={dest} index={i} />
+          ))}
+        </div>
+      )}
+
+      {/* View all button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="mt-12 text-center"
+      >
+        <Link
+          href="/destinacije"
+          className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-[10px] tracking-[0.4em] uppercase transition-all duration-300 hover:bg-[rgba(200,169,110,0.08)]"
+          style={{
+            border: '1px solid rgba(200,169,110,0.3)',
+            color: '#c8a96e',
+          }}
+        >
+          Pogledaj Sve Destinacije →
+        </Link>
+      </motion.div>
+    </section>
+  );
+}

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd \"c:\\\\Users\\\\tarik\\\\Desktop\\\\gofly-ba-v3\\\\gofly-ba\"; \\(Get-Content lib/destinations.ts | Measure-Object -Line\\).Lines)",
+      "PowerShell(npm install @supabase/supabase-js --prefix \"c:\\\\Users\\\\tarik\\\\Desktop\\\\gofly-ba-v3\\\\gofly-ba\")"
+    ]
+  }
+}
