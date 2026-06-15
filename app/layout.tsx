@@ -121,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               var zoom = Math.round((window.outerWidth / window.innerWidth) * 100);
               var warning = document.getElementById('zoom-warning');
               if (!warning) return;
-              if (zoom > 125 || window.innerWidth < 500) {
+              if (zoom > 125) {
                 warning.style.display = 'flex';
               } else {
                 warning.style.display = 'none';
