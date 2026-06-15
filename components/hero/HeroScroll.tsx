@@ -14,6 +14,14 @@ export function HeroScroll() {
   const heroHeaderRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -131,73 +139,81 @@ export function HeroScroll() {
           style={{
             position: 'absolute', top: 0, left: 0,
             width: '100%', height: '100svh',
-            padding: '2.5rem 3.5rem',
+            padding: isMobile ? '1.25rem' : '2.5rem 3.5rem',
             willChange: 'opacity', zIndex: 10,
             fontFamily: 'sans-serif', pointerEvents: 'none'
           }}
         >
-          <div style={{ position: 'absolute', top: '22%', left: '3.5rem', maxWidth: '35%' }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
+          <div style={{ position: 'absolute', top: isMobile ? '18%' : '22%', left: isMobile ? '1.25rem' : '3.5rem', maxWidth: isMobile ? '60%' : '35%' }}>
+            <h1 style={{ fontSize: isMobile ? 'clamp(2.2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
               Velike<br />avanture
             </h1>
           </div>
 
-          <div style={{ position: 'absolute', bottom: '26%', right: '3.5rem', textAlign: 'right', maxWidth: '40%' }}>
-            <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
+          <div style={{ position: 'absolute', bottom: isMobile ? '32%' : '26%', right: isMobile ? '1.25rem' : '3.5rem', textAlign: 'right', maxWidth: isMobile ? '60%' : '40%' }}>
+            <h1 style={{ fontSize: isMobile ? 'clamp(2.2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
               Manje<br />cijene
             </h1>
           </div>
 
-          <div style={{ position: 'absolute', bottom: '3.5rem', left: '3.5rem', maxWidth: '24rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            <div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: 500, lineHeight: 1.2, margin: '0 0 0.5rem 0' }}>Svako putovanje počinje pravim izborom.</h4>
-            </div>
-            <hr style={{ border: 'none', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: 0 }} />
-            <p style={{ fontSize: '0.72rem', lineHeight: 1.5, opacity: 0.7, margin: 0 }}>
-            Vjerujemo da nezaboravna putovanja ne moraju imati visoku cijenu. Zato pronalazimo najbolje ponude za vaše sljedeće odredište.</p>
-          </div>
-
-          {/* Skrol button */}
-          <button
-            onClick={() => window.scrollBy({ top: window.innerHeight * 3, behavior: 'smooth' })}
-            style={{
-              position: 'absolute', bottom: '4.5rem', right: '3.5rem', width: '30%',
-              display: 'flex', flexDirection: 'column', gap: '0.8rem',
-              background: 'none', border: 'none', color: 'white',
-              cursor: 'pointer', padding: 0, pointerEvents: 'auto',
-              textAlign: 'left', transition: 'opacity 0.3s ease',
-            }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
-            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-          >
-            <hr style={{ border: 'none', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: 0 }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '0.15em', fontWeight: 600, opacity: 0.8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                <svg className="animate-scroll-hint" width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
-                  <path d="M6 8l6 6 6-6" />
-                  <path d="M6 14l6 6 6-6" />
-                </svg>
-                <span>SKROLUJTE DOLJE</span>
-                <span>ZA POČETAK PUTOVANJA</span>
+          {/* Bottom-left text — desktop only */}
+          {!isMobile && (
+            <div style={{ position: 'absolute', bottom: '3.5rem', left: '3.5rem', maxWidth: '24rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div>
+                <h4 style={{ fontSize: '1.1rem', fontWeight: 500, lineHeight: 1.2, margin: '0 0 0.5rem 0' }}>Svako putovanje počinje pravim izborom.</h4>
               </div>
+              <hr style={{ border: 'none', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: 0 }} />
+              <p style={{ fontSize: '0.72rem', lineHeight: 1.5, opacity: 0.7, margin: 0 }}>
+              Vjerujemo da nezaboravna putovanja ne moraju imati visoku cijenu. Zato pronalazimo najbolje ponude za vaše sljedeće odredište.</p>
             </div>
-          </button>
+          )}
+
+          {/* Skrol button — desktop only */}
+          {!isMobile && (
+            <button
+              onClick={() => window.scrollBy({ top: window.innerHeight * 3, behavior: 'smooth' })}
+              style={{
+                position: 'absolute', bottom: '4.5rem', right: '3.5rem', width: '30%',
+                display: 'flex', flexDirection: 'column', gap: '0.8rem',
+                background: 'none', border: 'none', color: 'white',
+                cursor: 'pointer', padding: 0, pointerEvents: 'auto',
+                textAlign: 'left', transition: 'opacity 0.3s ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            >
+              <hr style={{ border: 'none', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: 0 }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '0.15em', fontWeight: 600, opacity: 0.8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <svg className="animate-scroll-hint" width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+                    <path d="M6 8l6 6 6-6" />
+                    <path d="M6 14l6 6 6-6" />
+                  </svg>
+                  <span>SKROLUJTE DOLJE</span>
+                  <span>ZA POČETAK PUTOVANJA</span>
+                </div>
+              </div>
+            </button>
+          )}
 
           {/* CTA dugmad */}
-          <div style={{ position: 'absolute', bottom: '2.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '0.6rem', zIndex: 50, pointerEvents: 'auto' }}>
+          <div style={{
+            position: 'absolute',
+            bottom: isMobile ? '1.75rem' : '2.5rem',
+            left: '50%', transform: 'translateX(-50%)',
+            display: 'flex', alignItems: 'center', gap: '0.6rem',
+            zIndex: 50, pointerEvents: 'auto',
+            whiteSpace: 'nowrap',
+          }}>
             <button
               onClick={() => setFormOpen(true)}
               style={{ backgroundColor: '#ffffff', color: '#000000', border: 'none', padding: '0.75rem 2rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', textTransform: 'uppercase', letterSpacing: '0.07em', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f8f8f5'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.25)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)'; }}
             >
               Počnite Istraživati
             </button>
             <button
               onClick={() => setFormOpen(true)}
-              style={{ backgroundColor: '#ffffff', width: '2.4rem', height: '2.4rem', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#000000', fontSize: '0.8rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px) rotate(15deg)'; e.currentTarget.style.backgroundColor = '#f8f8f5'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.25)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0) rotate(0deg)'; e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)'; }}
+              style={{ backgroundColor: '#ffffff', width: '2.4rem', height: '2.4rem', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#000000', fontSize: '0.8rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)', flexShrink: 0 }}
             >
               <span style={{ display: 'inline-block', transform: 'rotate(-45deg)' }}>✈</span>
             </button>
