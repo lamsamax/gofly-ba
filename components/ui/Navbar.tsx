@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { label: 'O Nama', href: '#about' },
   { label: 'Destinacije', href: '/destinacije' },
   { label: 'Iskustvo', href: '#benefits' },
-  { label: 'Globalno', href: '#global' },
 ];
 
 export function Navbar() {

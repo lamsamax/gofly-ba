@@ -90,7 +90,6 @@ export default function DestinacijePage() {
             <Link href="/#about" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">O Nama</Link>
             <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
             <Link href="/#benefits" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">Iskustvo</Link>
-            <Link href="/#global" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">Globalno</Link>
           </div>
           <a href="tel:+38761000000" className="hidden md:block text-[10px] tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors duration-300">
             +387 61 000 000
