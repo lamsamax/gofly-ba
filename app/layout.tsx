@@ -21,43 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="bs" className={`${inter.variable} ${cormorant.variable}`}>
       <body>
 
-        {/* Zoom/size warning */}
-        <div
-          id="zoom-warning"
-          style={{ display: 'none' }}
-          className="fixed inset-0 z-[99999] flex-col items-center justify-center bg-[#0d0a07]"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between px-12 w-full max-w-2xl gap-12">
-            <div>
-              <h2 className="text-white text-3xl font-light leading-snug mb-3">
-                Smanjite zoom
-                <br />
-                za bolje iskustvo
-              </h2>
-              <p className="text-white/30 text-sm">Preporučeni zoom: 100%</p>
-            </div>
-            <div className="relative flex items-end gap-4 opacity-80">
-              <svg width="120" height="90" viewBox="0 0 120 90" fill="none">
-                <rect x="2" y="2" width="116" height="86" rx="14" stroke="white" strokeOpacity="0.3" strokeWidth="1.5"/>
-                <rect x="45" y="8" width="30" height="5" rx="2.5" fill="white" fillOpacity="0.15"/>
-                <rect x="10" y="40" width="4" height="20" rx="2" fill="white" fillOpacity="0.15"/>
-              </svg>
-              <div className="absolute -top-8 right-0 flex items-center gap-1 text-white/60">
-                <span className="text-xs">100%</span>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <path d="M8 6 Q18 6 20 18" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                  <path d="M16 15 L20 18 L22 13" stroke="white" strokeOpacity="0.6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <svg width="80" height="110" viewBox="0 0 80 110" fill="none">
-                <rect x="2" y="2" width="76" height="106" rx="14" stroke="white" strokeOpacity="0.6" strokeWidth="1.5"/>
-                <rect x="25" y="7" width="30" height="5" rx="2.5" fill="white" fillOpacity="0.25"/>
-                <rect x="2" y="45" width="4" height="20" rx="2" fill="white" fillOpacity="0.25"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
         {/* Intro loading screen */}
         <div
           id="intro-screen"
@@ -96,40 +59,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
 
-        {/* Zoom detection + intro control */}
+        {/* Intro control */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
             var intro = document.getElementById('intro-screen');
             var seen = sessionStorage.getItem('gofly-intro-seen');
 
-            // Sakrij intro odmah ako je već viđen ili nije homepage
             if (seen || window.location.pathname !== '/') {
               if (intro) {
                 intro.style.animation = 'none';
                 intro.style.display = 'none';
               }
             } else {
-              // Prikaži intro i označi kao viđen nakon što nestane
               setTimeout(function() {
                 sessionStorage.setItem('gofly-intro-seen', '1');
                 if (intro) intro.style.display = 'none';
               }, 2900);
             }
-
-            // Zoom check — skip on touch/mobile devices
-            function checkZoom() {
-              if (window.matchMedia('(pointer: coarse)').matches) return;
-              var zoom = Math.round((window.outerWidth / window.innerWidth) * 100);
-              var warning = document.getElementById('zoom-warning');
-              if (!warning) return;
-              if (zoom > 125) {
-                warning.style.display = 'flex';
-              } else {
-                warning.style.display = 'none';
-              }
-            }
-            window.addEventListener('resize', checkZoom);
-            checkZoom();
           })();
         `}} />
 
