@@ -116,8 +116,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }, 2900);
             }
 
-            // Zoom check
+            // Zoom check — skip on touch/mobile devices
             function checkZoom() {
+              if (window.matchMedia('(pointer: coarse)').matches) return;
               var zoom = Math.round((window.outerWidth / window.innerWidth) * 100);
               var warning = document.getElementById('zoom-warning');
               if (!warning) return;
