@@ -5,26 +5,26 @@ import { motion, useInView } from 'framer-motion';
 
 const BENEFITS = [
   {
-    title: 'Uranjanje u Kulturu',
-    body: 'Idite dalje od površine. Spavajte u mongolskom geru, kuhajte s porodicom u Oaxaci, ronite u grebenu bez imena. Putovanje koje mijenja način na koji gledate na svijet.',
+    title: 'Najbolje avio ponude',
+    body: 'Pronalazimo povoljne letove i pažljivo birane aranžmane kako biste mogli putovati češće i otkrivati više – bez nepotrebnih troškova.',
     icon: '◈',
     color: '#7EC8E3',
   },
   {
     title: 'Dostupni 24/7',
-    body: 'Naš tim je dostupan non-stop za svaki zahtjev, bez obzira na vremensku zonu ili hitnost. Sa GoFly-jem, podrška je uvijek nadohvat poruke.',
+    body: 'Od prve ideje do povratka kući, naš tim je tu za sva pitanja i pomoć kako bi vaše putovanje proteklo bez stresa.',
     icon: '◎',
     color: '#c8a96e',
   },
   {
-    title: 'Personalizovana Iskustva',
-    body: 'Svako putovanje je prilagođeno s personalizovanim iskustvima osmišljenim da uzdigne vašu avanturu. Od skrivenih staza do privatnih večera — svaki detalj je unaprijed dogovoren.',
+    title: 'Pažljivo odabrane destinacije',
+    body: 'Od romantičnih vikenda u Parizu do mediteranskih bijegova i evropskih metropola – biramo destinacije koje vrijedi doživjeti.',
     icon: '◇',
     color: '#a8d8a8',
   },
   {
-    title: 'Odgovorno Putovanje',
-    body: 'Avantura bez uništavanja. Sarađujemo samo s operaterima koji štite ono što ove destinacije čini vrijednima posjete. Vaše putovanje finansira divlja mjesta koja istražujete.',
+    title: 'Putovanje po vašoj mjeri',
+    body: 'Bilo da tražite vikend odmor, porodično putovanje ili spontanu avanturu, pomoći ćemo vam pronaći aranžman koji odgovara vašim željama i budžetu.',
     icon: '◉',
     color: '#d4a5a5',
   },

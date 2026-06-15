@@ -19,7 +19,7 @@ function LiveClock() {
 }
 
 const STATS = [
-  { label: 'Podržanih Zemalja', value: '150+' },
+  { label: 'Podržanih Zemalja', value: '50+' },
   { label: 'Sjedište', value: 'Sarajevo, BiH' },
   { label: 'Lokalno Vrijeme', value: <LiveClock /> },
 ];

@@ -6,11 +6,11 @@ import { motion, useInView } from 'framer-motion';
 const PILLARS = [
   {
     title: 'Stručno Kreirano',
-    body: 'Svako GoFly putovanje dizajniraju ljudi koji su to sami doživjeli. Nema generičkih itinerera — samo rute koje otkrivaju ono što svaku destinaciju čini posebnom.',
+    body: 'Svako GoFly putovanje dizajniraju ljudi koji su to sami doživjeli. Rute koje otkrivaju ono što svaku destinaciju čini posebnom.',
   },
   {
     title: 'Vaša Sloboda',
-    body: 'Cijenimo vaše vrijeme i znatiželju iznad svega. GoFly vam daje slobodu da istražujete, doživljavate i povezujete se gdje god vas avantura odvede — bez kompromisa.',
+    body: 'Cijenimo vaše vrijeme i znatiželju iznad svega. GoFly vam daje slobodu da istražujete, doživljavate i povezujete se gdje god vas avantura odvede.',
   },
   {
     title: 'Preciznost i Izvrsnost',
@@ -18,7 +18,7 @@ const PILLARS = [
   },
   {
     title: 'Globalni Doseg, Lični Pristup',
-    body: 'Sa destinacijama u 150+ zemalja, GoFly vam donosi svijet bliže. Naši stručnjaci upravljaju svakim aspektom vašeg putovanja, garantirajući glatko i izvanredno iskustvo.',
+    body: 'Sa destinacijama u 50+ zemalja, GoFly vam donosi svijet bliže.',
   },
 ];
 

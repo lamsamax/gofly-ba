@@ -34,30 +34,39 @@ alter table destinations enable row level security;
 create policy "Public read" on destinations for select using (true);
 
 -- ============================================================
--- 2. INSERT DESTINATION CARDS (16 items)
+-- 2. INSERT DESTINATION CARDS (18 items)
 -- ============================================================
+truncate table destinations restart identity cascade;
+
 insert into destinations (slug, name, region, emoji, transport, image) values
-('kapadokija', 'Kapadokija',    'Turska',    '🎈', ARRAY['✈','🚌','🏨'], '/images/kapadokija.jpg'),
-('mauricijus',  'Mauricijus',   'Afrika',    '🏝', ARRAY['✈','🏨'],      '/images/mauricijus.jpg'),
-('bali',        'Bali',         'Indonezija','🌺', ARRAY['✈','🚌','🏨'], '/images/bali.jpg'),
-('portugal',    'Portugal',     'Evropa',    '🏰', ARRAY['✈','🚌','🏨'], '/images/portugal.jpg'),
-('maroko',      'Maroko',       'Afrika',    '🕌', ARRAY['✈','🚌','🏨'], '/images/maroko.jpg'),
-('japan',       'Japan',        'Azija',     '🗻', ARRAY['✈','🚌','🏨'], '/images/japan.jpg'),
-('indija',      'Indija',       'Azija',     '🕍', ARRAY['✈','🚌','🏨'], '/images/indija.jpg'),
-('andaluzija',  'Andaluzija',   'Španija',   '💃', ARRAY['✈','🚌','🏨'], '/images/andaluzija.jpg'),
-('kuba',        'Kuba',         'Karibi',    '🎺', ARRAY['✈','🏨'],      '/images/kuba.jpg'),
-('tajland',     'Tajland',      'Azija',     '🛕', ARRAY['✈','🚌','🏨'], '/images/tajland.jpg'),
-('new-york',    'New York',     'SAD',       '🗽', ARRAY['✈','🏨'],      '/images/new-york.jpg'),
-('juzna-amerika','Južna Amerika','Amerika',  '🌿', ARRAY['✈','🚌','🏨'], '/images/juzna-amerika.jpg'),
-('dubai',       'Dubai',        'UAE',       '🏙', ARRAY['✈','🏨'],      '/images/dubai.jpg'),
-('grcka',       'Grčka',        'Evropa',    '🏛', ARRAY['✈','🚌','🏨'], '/images/grcka.jpg'),
-('safari',      'Afrika Safari','Kenija',    '🦁', ARRAY['✈','🚌'],      '/images/safari.jpg'),
-('patagonia',   'Patagonija',   'Argentina', '🏔', ARRAY['✈','🚌','🏨'], '/images/patagonija.jpg')
+('milano',      'Milano',       'Italija',    '🛍', ARRAY['✈','🚌','🏨'], '/images/milano.jpg'),
+('barcelona',   'Barcelona',    'Španija',    '🥂', ARRAY['✈','🚌','🏨'], '/images/barcelona.jpg'),
+('pariz',       'Pariz',        'Francuska',  '🗼', ARRAY['✈','🚌','🏨'], '/images/pariz.jpg'),
+('london',      'London',       'UK',         '🎡', ARRAY['✈','🏨'],      '/images/london.jpg'),
+('amsterdam',   'Amsterdam',    'Holandija',  '🌷', ARRAY['✈','🚌','🏨'], '/images/amsterdam.jpg'),
+('rim',         'Rim',          'Italija',    '🏛', ARRAY['✈','🚌','🏨'], '/images/rim.jpg'),
+('atina',       'Atina',        'Grčka',      '🏺', ARRAY['✈','🚌','🏨'], '/images/atina.jpg'),
+('istanbul',    'Istanbul',     'Turska',     '🕌', ARRAY['✈','🚌','🏨'], '/images/istanbul.jpg'),
+('lisabon',     'Lisabon',      'Portugal',   '🏰', ARRAY['✈','🚌','🏨'], '/images/lisabon.jpg'),
+('berlin',      'Berlin',       'Njemačka',   '🐻', ARRAY['✈','🚌','🏨'], '/images/berlin.jpg'),
+('bec',         'Beč',          'Austrija',   '🎻', ARRAY['✈','🚌','🏨'], '/images/bec.jpg'),
+('prag',        'Prag',         'Češka',      '🏰', ARRAY['✈','🚌','🏨'], '/images/prag.jpg'),
+('budimpesta',  'Budimpešta',   'Mađarska',   '🌉', ARRAY['✈','🚌','🏨'], '/images/budimpesta.jpg'),
+('stockholm',   'Stockholm',    'Švedska',    '👑', ARRAY['✈','🏨'],      '/images/stockholm.jpg'),
+('dublin',      'Dublin',       'Irska',      '🍀', ARRAY['✈','🏨'],      '/images/dublin.jpg'),
+('madrid',      'Madrid',       'Španija',    '💃', ARRAY['✈','🚌','🏨'], '/images/madrid.jpg'),
+('malta',       'Malta',        'Malta',      '🏖', ARRAY['✈','🏨'],      '/images/malta.jpg'),
+('dubai',       'Dubai',        'UAE',        '🏙', ARRAY['✈','🏨'],      '/images/dubai.jpg')
 on conflict (slug) do nothing;
 
 -- ============================================================
--- 3. UPDATE KAPADOKIJA WITH FULL DETAILS
+-- 3. ADD FULL DETAILS FOR A DESTINATION (example: Istanbul)
 -- ============================================================
+-- update destinations set
+--   tagline = '...', price = '...', ...
+-- where slug = 'istanbul';
+
+-- PLACEHOLDER — fill in details per destination as needed
 update destinations set
   tagline = 'Avanturistički Pohod',
   hero_gradient = 'linear-gradient(135deg, #1a0a00 0%, #3d1a00 50%, #1a0a00 100%)',
@@ -124,4 +133,4 @@ update destinations set
     {"label":"Druga rata","amount":"500,00 KM","deadline":"do sredine aprila"},
     {"label":"Treća rata","amount":"ostatak","deadline":"do 10 dana prije putovanja"}
   ]'
-where slug = 'kapadokija';
+where slug = 'istanbul';

@@ -138,24 +138,23 @@ export function HeroScroll() {
         >
           <div style={{ position: 'absolute', top: '22%', left: '3.5rem', maxWidth: '35%' }}>
             <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
-              Mi smo<br />pokret
+              Velike<br />avanture
             </h1>
           </div>
 
           <div style={{ position: 'absolute', bottom: '26%', right: '3.5rem', textAlign: 'right', maxWidth: '40%' }}>
             <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
-              Mi smo<br />distinkcija
+              Manje<br />cijene
             </h1>
           </div>
 
           <div style={{ position: 'absolute', bottom: '3.5rem', left: '3.5rem', maxWidth: '24rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: 500, lineHeight: 1.2, margin: '0 0 0.5rem 0' }}>Vaša sloboda da<br />uživate u životu</h4>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 500, lineHeight: 1.2, margin: '0 0 0.5rem 0' }}>Svako putovanje počinje pravim izborom.</h4>
             </div>
             <hr style={{ border: 'none', height: '1px', backgroundColor: 'rgba(255,255,255,0.2)', margin: 0 }} />
             <p style={{ fontSize: '0.72rem', lineHeight: 1.5, opacity: 0.7, margin: 0 }}>
-              Svako putovanje je osmišljeno oko vaše udobnosti, vremena i ambicija — tako da se možete fokusirati na ono što je zaista važno, dok mi brinemo o svemu ostalom.
-            </p>
+            Vjerujemo da nezaboravna putovanja ne moraju imati visoku cijenu. Zato pronalazimo najbolje ponude za vaše sljedeće odredište.</p>
           </div>
 
           {/* Skrol button */}
@@ -179,8 +178,8 @@ export function HeroScroll() {
                   <path d="M6 14l6 6 6-6" />
                 </svg>
                 <span>SKROLUJTE DOLJE</span>
+                <span>ZA POČETAK PUTOVANJA</span>
               </div>
-              <span>ZA POČETAK PUTOVANJA</span>
             </div>
           </button>
 
@@ -211,7 +210,7 @@ export function HeroScroll() {
           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100svh', display: 'flex', justifyContent: 'center', alignItems: 'center', willChange: 'transform, opacity', zIndex: 20, padding: '0 10%', pointerEvents: 'none' }}
         >
           <h1 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(2.5rem, 5vw, 5.5rem)', fontWeight: 300, lineHeight: 1.1, color: '#ffffff', textAlign: 'center', maxWidth: '1100px' }}>
-            Vaša sljedeća destinacija nema mapu.
+            Pametna putovanja počinju ovdje.
           </h1>
         </div>
 

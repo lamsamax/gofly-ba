@@ -76,6 +76,35 @@ export default function DestinationPage({ params }: { params: { slug: string } }
   );
   if (!dest) return notFound();
 
+  if (!dest.story || !dest.days) return (
+    <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center gap-6 text-center px-8">
+      <nav className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl">
+        <div className="flex items-center justify-between px-5 py-3 rounded-2xl"
+          style={{ background: 'rgba(5,5,5,0.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(200,169,110,0.12)' }}>
+          <Link href="/"><GoFlyWordmark /></Link>
+          <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
+        </div>
+      </nav>
+      <p className="font-[family-name:var(--font-cormorant)] text-7xl font-light text-white/10">{dest.name}</p>
+      <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e]">{dest.region}</p>
+      <h1 className="font-[family-name:var(--font-cormorant)] text-5xl font-light text-white">{dest.name}</h1>
+      <p className="text-white/30 text-sm max-w-md leading-relaxed">
+        Detalji ovog putovanja su trenutno u pripremi. Kontaktirajte nas i javit ćemo vam sve informacije čim budu dostupne.
+      </p>
+      <div className="flex gap-4 flex-wrap justify-center mt-2">
+        <button onClick={() => setFormOpen(true)}
+          className="px-8 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505]"
+          style={{ background: '#c8a96e' }}>
+          Kontaktirajte Nas →
+        </button>
+        <Link href="/destinacije"
+          className="px-8 py-4 rounded-full text-sm tracking-widest uppercase text-white/40 border border-white/10 hover:text-white/70 transition-colors">
+          Sve Destinacije
+        </Link>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#050505] text-white font-[family-name:var(--font-inter)]">
 
