@@ -144,17 +144,21 @@ export function HeroScroll() {
             fontFamily: 'sans-serif', pointerEvents: 'none'
           }}
         >
-          <div style={{ position: 'absolute', top: isMobile ? '18%' : '22%', left: isMobile ? '1.25rem' : '3.5rem', maxWidth: isMobile ? '60%' : '35%' }}>
-            <h1 style={{ fontSize: isMobile ? 'clamp(2.2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
-              Velike<br />avanture
-            </h1>
-          </div>
+          {!isMobile && (
+            <div style={{ position: 'absolute', top: '22%', left: '3.5rem', maxWidth: '35%' }}>
+              <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
+                Velike<br />avanture
+              </h1>
+            </div>
+          )}
 
-          <div style={{ position: 'absolute', bottom: isMobile ? '32%' : '26%', right: isMobile ? '1.25rem' : '3.5rem', textAlign: 'right', maxWidth: isMobile ? '60%' : '40%' }}>
-            <h1 style={{ fontSize: isMobile ? 'clamp(2.2rem, 9vw, 3rem)' : 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
-              Manje<br />cijene
-            </h1>
-          </div>
+          {!isMobile && (
+            <div style={{ position: 'absolute', bottom: '26%', right: '3.5rem', textAlign: 'right', maxWidth: '40%' }}>
+              <h1 style={{ fontSize: 'clamp(2.5rem, 5.5vw, 6rem)', fontWeight: 300, letterSpacing: '0.02em', lineHeight: 0.9, color: '#ffffff', margin: 0, fontFamily: 'var(--font-cormorant), serif', fontStyle: 'italic' }}>
+                Manje<br />cijene
+              </h1>
+            </div>
+          )}
 
           {/* Bottom-left text — desktop only */}
           {!isMobile && (
@@ -196,28 +200,38 @@ export function HeroScroll() {
             </button>
           )}
 
-          {/* CTA dugmad */}
-          <div style={{
-            position: 'absolute',
-            bottom: isMobile ? '1.75rem' : '2.5rem',
-            left: '50%', transform: 'translateX(-50%)',
-            display: 'flex', alignItems: 'center', gap: '0.6rem',
-            zIndex: 50, pointerEvents: 'auto',
-            whiteSpace: 'nowrap',
-          }}>
-            <button
-              onClick={() => setFormOpen(true)}
-              style={{ backgroundColor: '#ffffff', color: '#000000', border: 'none', padding: '0.75rem 2rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', textTransform: 'uppercase', letterSpacing: '0.07em', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)' }}
-            >
-              Počnite Istraživati
-            </button>
-            <button
-              onClick={() => setFormOpen(true)}
-              style={{ backgroundColor: '#ffffff', width: '2.4rem', height: '2.4rem', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#000000', fontSize: '0.8rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)', flexShrink: 0 }}
-            >
-              <span style={{ display: 'inline-block', transform: 'rotate(-45deg)' }}>✈</span>
-            </button>
-          </div>
+          {/* Mobile: scroll hint only */}
+          {isMobile && (
+            <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', pointerEvents: 'none' }}>
+              <svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'bounce 1.8s ease-in-out infinite' }}>
+                <path d="M6 8l6 6 6-6" />
+                <path d="M6 14l6 6 6-6" />
+              </svg>
+              <span style={{ fontSize: '0.6rem', letterSpacing: '0.3em', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>Scroll to start</span>
+            </div>
+          )}
+
+          {/* Desktop: CTA dugmad */}
+          {!isMobile && (
+            <div style={{ position: 'absolute', bottom: '2.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '0.6rem', zIndex: 50, pointerEvents: 'auto', whiteSpace: 'nowrap' }}>
+              <button
+                onClick={() => setFormOpen(true)}
+                style={{ backgroundColor: '#ffffff', color: '#000000', border: 'none', padding: '0.75rem 2rem', borderRadius: '2rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', textTransform: 'uppercase', letterSpacing: '0.07em', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f8f8f5'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.25)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)'; }}
+              >
+                Počnite Istraživati
+              </button>
+              <button
+                onClick={() => setFormOpen(true)}
+                style={{ backgroundColor: '#ffffff', width: '2.4rem', height: '2.4rem', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#000000', fontSize: '0.8rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.15)', transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)', flexShrink: 0 }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px) rotate(15deg)'; e.currentTarget.style.backgroundColor = '#f8f8f5'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.25)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0) rotate(0deg)'; e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)'; }}
+              >
+                <span style={{ display: 'inline-block', transform: 'rotate(-45deg)' }}>✈</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* SLOJ 4: Krajnji tekst */}
