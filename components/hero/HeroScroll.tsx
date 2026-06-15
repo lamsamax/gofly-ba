@@ -200,9 +200,9 @@ export function HeroScroll() {
             </button>
           )}
 
-          {/* Mobile: scroll hint only */}
+          {/* Mobile: scroll hint centered on screen */}
           {isMobile && (
-            <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', pointerEvents: 'none' }}>
               <svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'bounce 1.8s ease-in-out infinite' }}>
                 <path d="M6 8l6 6 6-6" />
                 <path d="M6 14l6 6 6-6" />

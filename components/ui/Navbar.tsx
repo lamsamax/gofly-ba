@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GoFlyWordmark } from './Logo';
 
 const NAV_LINKS = [
-  { label: 'O Nama', href: '#about' },
+  { label: 'O Nama', href: '/#about' },
   { label: 'Destinacije', href: '/destinacije' },
-  { label: 'Iskustvo', href: '#benefits' },
+  { label: 'Iskustvo', href: '/#benefits' },
 ];
 
 export function Navbar() {
@@ -30,10 +30,10 @@ export function Navbar() {
           transition={{ duration: 0.9, delay: 0.5 }}
           className="flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-500"
           style={{
-            background: scrolled ? 'rgba(8,8,8,0.75)' : 'rgba(8,8,8,0.25)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: scrolled ? 'rgba(8,8,8,0.75)' : 'rgba(8,8,8,0.05)',
+            backdropFilter: scrolled ? 'blur(20px)' : 'blur(6px)',
+            WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(6px)',
+            border: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(255,255,255,0.04)',
             boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
           }}
         >

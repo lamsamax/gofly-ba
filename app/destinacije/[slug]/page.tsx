@@ -23,6 +23,7 @@ function ActivityIcon({ icon }: { icon: string }) {
 
 export default function DestinationPage({ params }: { params: { slug: string } }) {
   const [dest, setDest] = useState<Destination | null>(null);
+  const [destCard, setDestCard] = useState<{ image: string; emoji: string; transport: string[] } | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeDay, setActiveDay] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
@@ -36,6 +37,7 @@ export default function DestinationPage({ params }: { params: { slug: string } }
       .single()
       .then(({ data, error }) => {
         if (error || !data) { setLoading(false); return; }
+        setDestCard({ image: data.image || '', emoji: data.emoji || '', transport: data.transport || [] });
         setDest({
           slug: data.slug,
           name: data.name,
@@ -76,32 +78,177 @@ export default function DestinationPage({ params }: { params: { slug: string } }
   );
   if (!dest) return notFound();
 
+  const TRANSPORT_INFO: Record<string, { label: string; desc: string }> = {
+    '✈': { label: 'Avionski transfer', desc: 'Povratna avio karta uključena u cijenu' },
+    '🚌': { label: 'Autobuski transfer', desc: 'Transfer od/do aerodroma organizovan' },
+    '🏨': { label: 'Hotelski smještaj', desc: 'Smještaj u dvokrevetnoj sobi s doručkom' },
+  };
+
   if (!dest.story || !dest.days) return (
-    <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center gap-6 text-center px-8">
+    <div className="min-h-screen bg-[#050505] text-white">
+
+      {/* Navbar */}
       <nav className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl">
         <div className="flex items-center justify-between px-5 py-3 rounded-2xl"
-          style={{ background: 'rgba(5,5,5,0.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(200,169,110,0.12)' }}>
+          style={{ background: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(20px)', border: '1px solid rgba(200,169,110,0.12)' }}>
           <Link href="/"><GoFlyWordmark /></Link>
-          <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
+          <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">← Destinacije</Link>
         </div>
       </nav>
-      <p className="font-[family-name:var(--font-cormorant)] text-7xl font-light text-white/10">{dest.name}</p>
-      <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e]">{dest.region}</p>
-      <h1 className="font-[family-name:var(--font-cormorant)] text-5xl font-light text-white">{dest.name}</h1>
-      <p className="text-white/30 text-sm max-w-md leading-relaxed">
-        Detalji ovog putovanja su trenutno u pripremi. Kontaktirajte nas i javit ćemo vam sve informacije čim budu dostupne.
-      </p>
-      <div className="flex gap-4 flex-wrap justify-center mt-2">
-        <button onClick={() => setFormOpen(true)}
-          className="px-8 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505]"
-          style={{ background: '#c8a96e' }}>
-          Kontaktirajte Nas →
-        </button>
-        <Link href="/destinacije"
-          className="px-8 py-4 rounded-full text-sm tracking-widest uppercase text-white/40 border border-white/10 hover:text-white/70 transition-colors">
-          Sve Destinacije
-        </Link>
-      </div>
+
+      {/* Hero with destination image */}
+      <section className="relative h-[65vh] overflow-hidden">
+        <div className="absolute inset-0"
+          style={destCard?.image
+            ? { backgroundImage: `url(${destCard.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+            : { background: 'linear-gradient(160deg, #1a0d00 0%, #050505 100%)' }
+          }
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/30 to-black/10" />
+        <div className="absolute bottom-0 left-0 right-0 px-8 md:px-16 pb-12">
+          {destCard?.emoji && <p className="text-5xl mb-4 opacity-60">{destCard.emoji}</p>}
+          <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e] mb-3">{dest.region}</p>
+          <h1 className="font-[family-name:var(--font-cormorant)] text-6xl md:text-8xl font-light text-white leading-none mb-6">
+            {dest.name}
+          </h1>
+          <div className="flex gap-2">
+            {(destCard?.transport || []).map((t, i) => (
+              <div key={i} className="w-9 h-9 rounded-full flex items-center justify-center text-base"
+                style={{ background: 'rgba(200,169,110,0.12)', border: '1px solid rgba(200,169,110,0.25)' }}>
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tour detail cards */}
+      <section className="px-8 md:px-16 py-20">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e] mb-3">Detalji putovanja</p>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-12">Šta vas čeka</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Card 1 — what's included */}
+            <div className="p-8 rounded-2xl" style={{ background: 'rgba(200,169,110,0.04)', border: '1px solid rgba(200,169,110,0.1)' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-[#c8a96e] text-sm mb-6"
+                style={{ background: 'rgba(200,169,110,0.1)', border: '1px solid rgba(200,169,110,0.2)' }}>✓</div>
+              <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-white mb-6">Paket uključuje</h3>
+              <ul className="flex flex-col gap-5">
+                {(destCard?.transport || []).map((t, i) => {
+                  const info = TRANSPORT_INFO[t];
+                  return info ? (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="text-xl mt-0.5 flex-shrink-0">{t}</span>
+                      <div>
+                        <p className="text-sm text-white/70">{info.label}</p>
+                        <p className="text-xs text-white/30 mt-0.5">{info.desc}</p>
+                      </div>
+                    </li>
+                  ) : null;
+                })}
+                <li className="flex items-start gap-3">
+                  <span className="text-xl mt-0.5 flex-shrink-0">👥</span>
+                  <div>
+                    <p className="text-sm text-white/70">GoFly pratilac grupe</p>
+                    <p className="text-xs text-white/30 mt-0.5">Organizovan program tokom putovanja</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 2 — tour info */}
+            <div className="p-8 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white/40 text-sm mb-6"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>ℹ</div>
+              <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-white mb-6">Informacije</h3>
+              <ul className="flex flex-col gap-5">
+                {[
+                  { icon: '👥', label: 'Grupna tura', sub: 'Organizovano za grupu putnika' },
+                  { icon: '📍', label: 'Polazak iz Sarajeva', sub: 'Autobusom do aerodroma' },
+                  { icon: '💳', label: 'Uplata na rate', sub: 'Fleksibilne opcije plaćanja' },
+                  { icon: '📋', label: 'Program u pripremi', sub: 'Detaljni itinerer uskoro dostupan' },
+                ].map(({ icon, label, sub }) => (
+                  <li key={label} className="flex items-start gap-3">
+                    <span className="text-xl mt-0.5 flex-shrink-0">{icon}</span>
+                    <div>
+                      <p className="text-sm text-white/70">{label}</p>
+                      <p className="text-xs text-white/30 mt-0.5">{sub}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="px-8 md:px-16 pb-24">
+        <div className="max-w-4xl mx-auto">
+          <div className="h-px bg-white/[0.04] mb-12" />
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <button onClick={() => setFormOpen(true)}
+              className="px-10 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
+              style={{ background: '#c8a96e' }}>
+              Kontaktirajte Nas →
+            </button>
+            <Link href="/destinacije"
+              className="px-10 py-4 rounded-full text-sm tracking-widest uppercase text-white/40 border border-white/10 hover:text-white/60 transition-colors">
+              ← Sve Destinacije
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/[0.04] bg-[#050505] px-8 md:px-16 py-12">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <GoFlyWordmark />
+          <p className="text-[9px] tracking-[0.3em] uppercase text-white/15">
+            © {new Date().getFullYear()} GoFly. Sva prava zadržana.
+          </p>
+        </div>
+      </footer>
+
+      {/* Contact form modal */}
+      {formOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)' }}
+          onClick={() => setFormOpen(false)}>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
+            className="relative w-full max-w-md mx-4 p-10 rounded-2xl"
+            style={{ background: '#0a0a0a', border: '1px solid rgba(200,169,110,0.15)' }}
+            onClick={e => e.stopPropagation()}>
+            <button onClick={() => setFormOpen(false)}
+              className="absolute top-5 right-5 text-white/25 hover:text-white/70 text-xl transition-colors">×</button>
+            {!submitted ? (
+              <>
+                <p className="text-[10px] tracking-[0.5em] uppercase text-[#c8a96e] mb-2">Kontakt</p>
+                <h3 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-8">{dest.name}</h3>
+                <div className="flex flex-col gap-3">
+                  {['Ime i prezime', 'Email adresa', 'Broj telefona', 'Poruka'].map(field => (
+                    <input key={field} type="text" placeholder={field}
+                      className="w-full bg-white/[0.03] border border-white/[0.07] px-4 py-3 text-sm text-white placeholder-white/20 rounded-xl outline-none focus:border-[#c8a96e]/40 transition-colors duration-300" />
+                  ))}
+                  <button onClick={handleSubmit}
+                    className="mt-2 w-full py-4 text-[10px] tracking-[0.45em] uppercase text-[#050505] transition-all duration-300 rounded-xl font-medium hover:opacity-90"
+                    style={{ background: '#c8a96e' }}>
+                    Pošaljite Upit
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-[#c8a96e] text-4xl mb-4">✓</p>
+                <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-light text-white mb-3">Upit Primljen</h3>
+                <p className="text-sm text-white/40">Hvala! Naš tim će vas kontaktirati uskoro.</p>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 
