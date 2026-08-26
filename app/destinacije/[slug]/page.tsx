@@ -30,7 +30,7 @@ export default function DestinationPage({ params }: { params: { slug: string } }
   if (!card) return notFound();
 
   const destCard = { image: card.image, emoji: card.emoji, transport: card.transport };
-  const dest = { slug: card.slug, name: card.name, region: card.region, ...DESTINATIONS[card.slug] } as Destination;
+  const dest = { ...DESTINATIONS[card.slug], slug: card.slug, name: card.name, region: card.region } as Destination;
 
   if (!dest.story || !dest.days) return (
     <div className="min-h-screen bg-[#050505] text-white">
