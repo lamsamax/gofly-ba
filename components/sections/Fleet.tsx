@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { DESTINATION_CARDS } from '@/lib/destination-cards';
 
 type DestCard = { slug: string; name: string; region: string; transport: string[]; image: string; };
 
@@ -62,23 +62,14 @@ function DestCard({ dest, index }: { dest: DestCard; index: number }) {
   );
 }
 
+const FEATURED_DESTINATIONS = DESTINATION_CARDS.slice(0, 4);
+
 export function Fleet() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-5%' });
-  const [destinations, setDestinations] = useState<DestCard[]>([]);
-
-  useEffect(() => {
-    supabase
-      .from('destinations')
-      .select('slug, name, region, transport, image')
-      .limit(4)
-      .then(({ data }) => {
-        if (data) setDestinations(data as DestCard[]);
-      });
-  }, []);
 
   return (
-    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-40 border-t border-white/[0.04]">
+    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-40">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -105,7 +96,7 @@ export function Fleet() {
 
       {inView && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {destinations.map((dest, i) => (
+          {FEATURED_DESTINATIONS.map((dest, i) => (
             <DestCard key={dest.slug} dest={dest} index={i} />
           ))}
         </div>

@@ -40,9 +40,9 @@ export interface Destination {
 }
 
 export const DESTINATIONS: Record<string, Destination> = {
-  kapadokija: {
-    slug: 'kapadokija',
-    name: 'Kapadokija',
+  istanbul: {
+    slug: 'istanbul',
+    name: 'Istanbul',
     region: 'Turska',
     tagline: 'Avanturistički Pohod',
     heroGradient: 'linear-gradient(135deg, #1a0a00 0%, #3d1a00 50%, #1a0a00 100%)',
@@ -167,6 +167,54 @@ export const DESTINATIONS: Record<string, Destination> = {
       { label: 'Prva rata i prijava', amount: '500,00 KM', deadline: 'do sredine marta' },
       { label: 'Druga rata', amount: '500,00 KM', deadline: 'do sredine aprila' },
       { label: 'Treća rata', amount: 'ostatak', deadline: 'do 10 dana prije putovanja' },
+    ],
+  },
+
+  // PLACEHOLDER — pravi sadržaj (cijena, program, priča, itd.) stiže naknadno.
+  rim: {
+    slug: 'rim',
+    name: 'Rim',
+    region: 'Italija',
+    tagline: 'Detalji uskoro',
+    heroGradient: 'linear-gradient(135deg, #1a0a00 0%, #3d1a00 50%, #1a0a00 100%)',
+    price: 'Cijena uskoro',
+    priceNote: 'placeholder',
+    duration: 'Uskoro',
+    dates: 'Uskoro',
+    capacity: '—',
+    difficulty: '—',
+    difficultyFun: '—',
+    difficultyActivity: '—',
+    hasKids: '—',
+    route: 'Program putovanja objavljujemo uskoro',
+    story: {
+      quote: 'Uskoro objavljujemo priču o ovom putovanju.',
+      paragraphs: [
+        'Ovdje će stajati puni opis putovanja — detalji stižu naknadno.',
+      ],
+    },
+    days: [
+      {
+        number: 1,
+        date: 'TBA',
+        dayName: 'DAN 1',
+        title: 'Program u pripremi',
+        activities: [
+          { icon: 'info', text: 'Detaljan plan i program objavljujemo uskoro.' },
+        ],
+      },
+    ],
+    notes: [
+      'Sve informacije na ovoj stranici su placeholder — ažuriraćemo ih čim program bude finaliziran.',
+    ],
+    included: [
+      'Lista uključenog stiže uskoro.',
+    ],
+    notIncluded: [
+      'Lista neuključenog stiže uskoro.',
+    ],
+    installments: [
+      { label: 'Detalji plaćanja', amount: 'uskoro', deadline: 'uskoro' },
     ],
   },
 };

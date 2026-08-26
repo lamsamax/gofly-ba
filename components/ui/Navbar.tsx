@@ -28,7 +28,7 @@ export function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.5 }}
-          className="flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-500"
+          className="flex items-center justify-between px-5 py-0.5 rounded-2xl transition-all duration-500"
           style={{
             background: scrolled ? 'rgba(8,8,8,0.75)' : 'rgba(8,8,8,0.05)',
             backdropFilter: scrolled ? 'blur(20px)' : 'blur(6px)',
@@ -38,7 +38,7 @@ export function Navbar() {
           }}
         >
           <Link href="/">
-            <GoFlyWordmark />
+            <GoFlyWordmark className="h-12" />
           </Link>
 
           <ul className="hidden md:flex items-center gap-8">
@@ -55,11 +55,11 @@ export function Navbar() {
           </ul>
 
           <div className="hidden md:flex items-center gap-6">
-            <a href="tel:+38761000000" className="text-[10px] tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300">
-              +387 61 000 000
+            <a href="tel:+38733533303" className="text-[10px] tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300">
+              +387 33 533 303
             </a>
-            <a href="mailto:info@gofly.ba" className="text-[10px] tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300">
-              info@gofly.ba
+            <a href="mailto:goflybosnia@gmail.com" className="text-[10px] tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300">
+              goflybosnia@gmail.com
             </a>
           </div>
 
@@ -100,8 +100,8 @@ export function Navbar() {
               </Link>
             ))}
             <div className="border-t border-white/[0.06] pt-6 flex flex-col gap-3">
-              <a href="tel:+38761000000" className="text-xs tracking-[0.2em] text-white/40">+387 61 000 000</a>
-              <a href="mailto:info@gofly.ba" className="text-xs tracking-[0.2em] text-white/40">info@gofly.ba</a>
+              <a href="tel:+38733533303" className="text-xs tracking-[0.2em] text-white/40">+387 33 533 303</a>
+              <a href="mailto:goflybosnia@gmail.com" className="text-xs tracking-[0.2em] text-white/40">goflybosnia@gmail.com</a>
             </div>
           </motion.div>
         )}

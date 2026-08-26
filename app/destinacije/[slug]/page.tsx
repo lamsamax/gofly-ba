@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { notFound } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Destination } from '@/lib/destinations';
-import { supabase } from '@/lib/supabase';
+import { Destination, DESTINATIONS } from '@/lib/destinations';
+import { DESTINATION_CARDS } from '@/lib/destination-cards';
 import { GoFlyWordmark } from '@/components/ui/Logo';
 import Link from 'next/link';
 
@@ -22,67 +22,15 @@ function ActivityIcon({ icon }: { icon: string }) {
 }
 
 export default function DestinationPage({ params }: { params: { slug: string } }) {
-  const [dest, setDest] = useState<Destination | null>(null);
-  const [destCard, setDestCard] = useState<{ image: string; emoji: string; transport: string[] } | null>(null);
-  const [loading, setLoading] = useState(true);
   const [activeDay, setActiveDay] = useState(0);
   const [formOpen, setFormOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    supabase
-      .from('destinations')
-      .select('*')
-      .eq('slug', params.slug)
-      .single()
-      .then(({ data, error }) => {
-        if (error || !data) { setLoading(false); return; }
-        setDestCard({ image: data.image || '', emoji: data.emoji || '', transport: data.transport || [] });
-        setDest({
-          slug: data.slug,
-          name: data.name,
-          region: data.region,
-          tagline: data.tagline,
-          heroGradient: data.hero_gradient,
-          price: data.price,
-          priceNote: data.price_note,
-          duration: data.duration,
-          dates: data.dates,
-          capacity: data.capacity,
-          difficulty: data.difficulty,
-          difficultyFun: data.difficulty_fun,
-          difficultyActivity: data.difficulty_activity,
-          hasKids: data.has_kids,
-          route: data.route,
-          story: data.story,
-          days: data.days,
-          notes: data.notes,
-          included: data.included,
-          notIncluded: data.not_included,
-          installments: data.installments,
-        });
-        setLoading(false);
-      });
-  }, [params.slug]);
+  const card = DESTINATION_CARDS.find(c => c.slug === params.slug);
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); setFormOpen(false); }, 3000);
-  };
+  if (!card) return notFound();
 
-  if (loading) return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center">
-      <div style={{ width: 40, height: 40, border: '2px solid rgba(200,169,110,0.2)', borderTop: '2px solid #c8a96e', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-    </div>
-  );
-  if (!dest) return notFound();
-
-  const TRANSPORT_INFO: Record<string, { label: string; desc: string }> = {
-    '✈': { label: 'Avionski transfer', desc: 'Povratna avio karta uključena u cijenu' },
-    '🚌': { label: 'Autobuski transfer', desc: 'Transfer od/do aerodroma organizovan' },
-    '🏨': { label: 'Hotelski smještaj', desc: 'Smještaj u dvokrevetnoj sobi s doručkom' },
-  };
+  const destCard = { image: card.image, emoji: card.emoji, transport: card.transport };
+  const dest = { slug: card.slug, name: card.name, region: card.region, ...DESTINATIONS[card.slug] } as Destination;
 
   if (!dest.story || !dest.days) return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -122,65 +70,17 @@ export default function DestinationPage({ params }: { params: { slug: string } }
         </div>
       </section>
 
-      {/* Tour detail cards */}
-      <section className="px-8 md:px-16 py-20">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e] mb-3">Detalji putovanja</p>
-          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-12">Šta vas čeka</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {/* Card 1 — what's included */}
-            <div className="p-8 rounded-2xl" style={{ background: 'rgba(200,169,110,0.04)', border: '1px solid rgba(200,169,110,0.1)' }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-[#c8a96e] text-sm mb-6"
-                style={{ background: 'rgba(200,169,110,0.1)', border: '1px solid rgba(200,169,110,0.2)' }}>✓</div>
-              <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-white mb-6">Paket uključuje</h3>
-              <ul className="flex flex-col gap-5">
-                {(destCard?.transport || []).map((t, i) => {
-                  const info = TRANSPORT_INFO[t];
-                  return info ? (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5 flex-shrink-0">{t}</span>
-                      <div>
-                        <p className="text-sm text-white/70">{info.label}</p>
-                        <p className="text-xs text-white/30 mt-0.5">{info.desc}</p>
-                      </div>
-                    </li>
-                  ) : null;
-                })}
-                <li className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5 flex-shrink-0">👥</span>
-                  <div>
-                    <p className="text-sm text-white/70">GoFly pratilac grupe</p>
-                    <p className="text-xs text-white/30 mt-0.5">Organizovan program tokom putovanja</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            {/* Card 2 — tour info */}
-            <div className="p-8 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white/40 text-sm mb-6"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>ℹ</div>
-              <h3 className="font-[family-name:var(--font-cormorant)] text-2xl font-light text-white mb-6">Informacije</h3>
-              <ul className="flex flex-col gap-5">
-                {[
-                  { icon: '👥', label: 'Grupna tura', sub: 'Organizovano za grupu putnika' },
-                  { icon: '📍', label: 'Polazak iz Sarajeva', sub: 'Autobusom do aerodroma' },
-                  { icon: '💳', label: 'Uplata na rate', sub: 'Fleksibilne opcije plaćanja' },
-                  { icon: '📋', label: 'Program u pripremi', sub: 'Detaljni itinerer uskoro dostupan' },
-                ].map(({ icon, label, sub }) => (
-                  <li key={label} className="flex items-start gap-3">
-                    <span className="text-xl mt-0.5 flex-shrink-0">{icon}</span>
-                    <div>
-                      <p className="text-sm text-white/70">{label}</p>
-                      <p className="text-xs text-white/30 mt-0.5">{sub}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      {/* Coming soon notice */}
+      <section className="px-8 md:px-16 py-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#c8a96e] text-xl mx-auto mb-8"
+            style={{ background: 'rgba(200,169,110,0.08)', border: '1px solid rgba(200,169,110,0.2)' }}>📋</div>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-4xl md:text-5xl font-light text-white mb-4">
+            Više detalja objavljujemo uskoro
+          </h2>
+          <p className="text-sm text-white/40 max-w-lg mx-auto leading-relaxed">
+            Program, cijena i termini za {dest.name} su u pripremi. Javite nam se na WhatsApp za sva pitanja u međuvremenu.
+          </p>
         </div>
       </section>
 
@@ -189,11 +89,14 @@ export default function DestinationPage({ params }: { params: { slug: string } }
         <div className="max-w-4xl mx-auto">
           <div className="h-px bg-white/[0.04] mb-12" />
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <button onClick={() => setFormOpen(true)}
+            <a
+              href={`https://wa.me/38761102817?text=${encodeURIComponent(`Zdravo! Zanima me više informacija o putovanju: ${dest.name}.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-10 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
               style={{ background: '#c8a96e' }}>
               Kontaktirajte Nas →
-            </button>
+            </a>
             <Link href="/destinacije"
               className="px-10 py-4 rounded-full text-sm tracking-widest uppercase text-white/40 border border-white/10 hover:text-white/60 transition-colors">
               ← Sve Destinacije
@@ -211,44 +114,6 @@ export default function DestinationPage({ params }: { params: { slug: string } }
           </p>
         </div>
       </footer>
-
-      {/* Contact form modal */}
-      {formOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center"
-          style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)' }}
-          onClick={() => setFormOpen(false)}>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-            className="relative w-full max-w-md mx-4 p-10 rounded-2xl"
-            style={{ background: '#0a0a0a', border: '1px solid rgba(200,169,110,0.15)' }}
-            onClick={e => e.stopPropagation()}>
-            <button onClick={() => setFormOpen(false)}
-              className="absolute top-5 right-5 text-white/25 hover:text-white/70 text-xl transition-colors">×</button>
-            {!submitted ? (
-              <>
-                <p className="text-[10px] tracking-[0.5em] uppercase text-[#c8a96e] mb-2">Kontakt</p>
-                <h3 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-8">{dest.name}</h3>
-                <div className="flex flex-col gap-3">
-                  {['Ime i prezime', 'Email adresa', 'Broj telefona', 'Poruka'].map(field => (
-                    <input key={field} type="text" placeholder={field}
-                      className="w-full bg-white/[0.03] border border-white/[0.07] px-4 py-3 text-sm text-white placeholder-white/20 rounded-xl outline-none focus:border-[#c8a96e]/40 transition-colors duration-300" />
-                  ))}
-                  <button onClick={handleSubmit}
-                    className="mt-2 w-full py-4 text-[10px] tracking-[0.45em] uppercase text-[#050505] transition-all duration-300 rounded-xl font-medium hover:opacity-90"
-                    style={{ background: '#c8a96e' }}>
-                    Pošaljite Upit
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-[#c8a96e] text-4xl mb-4">✓</p>
-                <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-light text-white mb-3">Upit Primljen</h3>
-                <p className="text-sm text-white/40">Hvala! Naš tim će vas kontaktirati uskoro.</p>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      )}
     </div>
   );
 
@@ -548,7 +413,9 @@ export default function DestinationPage({ params }: { params: { slug: string } }
         </div>
       </footer>
 
-      {/* Contact form modal — dark */}
+      {/* Prijava modal — rezervisan prostor za Google formu.
+          Kad forma stigne, zamijeni placeholder blok ispod sa:
+          <iframe src="GOOGLE_FORM_EMBED_URL" width="100%" height="600" frameBorder="0">Učitavanje…</iframe> */}
       {formOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center"
           style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)' }}
@@ -559,35 +426,17 @@ export default function DestinationPage({ params }: { params: { slug: string } }
             onClick={e => e.stopPropagation()}>
             <button onClick={() => setFormOpen(false)}
               className="absolute top-5 right-5 text-white/25 hover:text-white/70 text-xl transition-colors">×</button>
-            {!submitted ? (
-              <>
-                <p className="text-[10px] tracking-[0.5em] uppercase text-[#c8a96e] mb-2">Prijava</p>
-                <h3 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-1">{dest.name}</h3>
-                <p className="text-sm text-[#c8a96e]/70 mb-8">{dest.price}</p>
-                <div className="flex flex-col gap-3">
-                  {['Ime i prezime', 'Email adresa', 'Broj telefona', 'Broj putnika'].map(field => (
-                    <input key={field} type="text" placeholder={field}
-                      className="w-full bg-white/[0.03] border border-white/[0.07] px-4 py-3 text-sm text-white placeholder-white/20 rounded-xl outline-none focus:border-[#c8a96e]/40 transition-colors duration-300" />
-                  ))}
-                  <button onClick={handleSubmit}
-                    className="mt-2 w-full py-4 text-[10px] tracking-[0.45em] uppercase text-[#050505] transition-all duration-300 rounded-xl font-medium hover:opacity-90"
-                    style={{ background: '#c8a96e' }}>
-                    Pošaljite Prijavu
-                  </button>
-                </div>
-                <p className="mt-4 text-[9px] text-white/20 text-center">
-                  Slanjem pristajete na našu Politiku Privatnosti
-                </p>
-              </>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-[#c8a96e] text-4xl mb-4">✓</p>
-                <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-light text-white mb-3">
-                  Prijava Primljena
-                </h3>
-                <p className="text-sm text-white/40">Hvala! Naš tim će vas kontaktirati uskoro.</p>
-              </div>
-            )}
+
+            <p className="text-[10px] tracking-[0.5em] uppercase text-[#c8a96e] mb-2">Prijava</p>
+            <h3 className="font-[family-name:var(--font-cormorant)] text-4xl font-light text-white mb-1">{dest.name}</h3>
+            <p className="text-sm text-[#c8a96e]/70 mb-8">{dest.price}</p>
+
+            {/* GOOGLE_FORM_PLACEHOLDER — rezervisan prostor, forma se ubacuje ovdje */}
+            <div className="rounded-xl py-14 px-6 flex flex-col items-center gap-2 text-center"
+              style={{ border: '1px dashed rgba(200,169,110,0.25)', background: 'rgba(200,169,110,0.03)' }}>
+              <span className="text-2xl opacity-50">📝</span>
+              <p className="text-xs text-white/40">Google forma za prijavu stiže uskoro.</p>
+            </div>
           </motion.div>
         </div>
       )}

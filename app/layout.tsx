@@ -28,27 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           style={{ animation: 'introFade 2.8s ease forwards' }}
         >
           <div className="flex flex-col items-center gap-5">
-            <svg width="56" height="56" viewBox="0 0 100 100" fill="none">
-              <defs>
-                <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FF8C00" />
-                  <stop offset="50%" stopColor="#FF4500" />
-                  <stop offset="100%" stopColor="#FF1493" />
-                </linearGradient>
-              </defs>
-              <path d="M50 5C32 5 18 19 18 37C18 55 50 90 50 90C50 90 82 55 82 37C82 19 68 5 50 5Z" fill="url(#lg)" />
-              <circle cx="50" cy="36" r="18" fill="#050505" />
-              <path d="M58 28L42 36L46 40L40 46L44 46L50 40L54 44L62 30L58 28Z" fill="white" transform="rotate(-35, 50, 37)" />
-            </svg>
-
-            <div className="text-center">
-              <p className="font-[family-name:var(--font-cormorant)] text-3xl font-light tracking-[0.25em] text-white">
-                GO<em className="not-italic" style={{ color: '#c8a96e' }}>FLY</em>
-              </p>
-              <p className="text-[8px] tracking-[0.5em] uppercase text-white/30 mt-1">
-                Fly More. Pay Less.
-              </p>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo.png" alt="GoFly" className="h-28 w-auto object-contain" />
 
             <div className="w-28 h-px bg-white/8 relative overflow-hidden mt-3">
               <div

@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { GoFlyWordmark } from '@/components/ui/Logo';
+import { DESTINATION_CARDS } from '@/lib/destination-cards';
 
 type DestCard = { slug: string; name: string; region: string; emoji: string; transport: string[]; image: string; };
 
@@ -56,27 +56,15 @@ function DestCard({ dest, index }: { dest: DestCard; index: number }) {
   );
 }
 
+const SORTED_DESTINATIONS = [...DESTINATION_CARDS].sort((a, b) => a.name.localeCompare(b.name));
+
 export default function DestinacijePage() {
   const [search, setSearch] = useState('');
-  const [destinations, setDestinations] = useState<DestCard[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase
-      .from('destinations')
-      .select('slug, name, region, emoji, transport, image')
-      .order('name')
-      .then(({ data, error }) => {
-        if (error) console.error('Supabase error:', error);
-        if (data) setDestinations(data as DestCard[]);
-        setLoading(false);
-      });
-  }, []);
-
-  const filtered = destinations.filter(d =>
+  const filtered = useMemo(() => SORTED_DESTINATIONS.filter(d =>
     d.name.toLowerCase().includes(search.toLowerCase()) ||
     d.region.toLowerCase().includes(search.toLowerCase())
-  );
+  ), [search]);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -91,8 +79,8 @@ export default function DestinacijePage() {
             <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
             <Link href="/#benefits" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">Iskustvo</Link>
           </div>
-          <a href="tel:+38761000000" className="hidden md:block text-[10px] tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors duration-300">
-            +387 61 000 000
+          <a href="tel:+38733533303" className="hidden md:block text-[10px] tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors duration-300">
+            +387 33 533 303
           </a>
         </div>
       </nav>

@@ -147,8 +147,8 @@ export function GlobalMap() {
           </div>
           <div className="flex flex-col gap-3">
             <p className="text-[9px] tracking-[0.4em] uppercase text-white/30">Za Upite</p>
-            <a href="mailto:info@gofly.ba" className="text-sm text-white/60 hover:text-white transition-colors duration-300">info@gofly.ba</a>
-            <a href="tel:+38761000000" className="text-sm text-white/60 hover:text-white transition-colors duration-300">+387 61 000 000</a>
+            <a href="mailto:goflybosnia@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors duration-300">goflybosnia@gmail.com</a>
+            <a href="tel:+38733533303" className="text-sm text-white/60 hover:text-white transition-colors duration-300">+387 33 533 303</a>
           </div>
         </div>
       </div>
