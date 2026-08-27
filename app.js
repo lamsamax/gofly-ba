@@ -13,11 +13,34 @@ const dev = process.env.NODE_ENV !== 'production';
 // though the files are in the right place. `dir` above is always
 // correct (it's where this file physically lives), so use it to
 // build here as a guaranteed fallback if no production build exists.
-if (!dev) {
-  const buildIdPath = path.join(dir, '.next', 'BUILD_ID');
-  if (!fs.existsSync(buildIdPath)) {
-    console.log('No production build found — running next build...');
+//
+// Passenger can also kill this process mid-build if it takes longer
+// than its startup timeout, leaving a partial/corrupt .next folder
+// behind. Check for more than just BUILD_ID, and if the build itself
+// throws, wipe .next so the next spawn attempt starts a clean build
+// instead of repeatedly crashing against broken build output.
+function hasCompleteBuild() {
+  return ['BUILD_ID', 'routes-manifest.json', 'prerender-manifest.json']
+    .every((f) => fs.existsSync(path.join(dir, '.next', f)));
+}
+
+function clearBuild(nextDir) {
+  try {
+    fs.rmSync(nextDir, { recursive: true, force: true });
+  } catch (err) {
+    console.warn('Could not clear .next before rebuilding:', err.message);
+  }
+}
+
+if (!dev && !hasCompleteBuild()) {
+  console.log('No complete production build found — running next build...');
+  const nextDir = path.join(dir, '.next');
+  clearBuild(nextDir);
+  try {
     execSync('npx next build', { cwd: dir, stdio: 'inherit' });
+  } catch (err) {
+    clearBuild(nextDir);
+    throw err;
   }
 }
 
