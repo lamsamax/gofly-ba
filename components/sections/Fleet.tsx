@@ -75,24 +75,15 @@ export function Fleet() {
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="mb-4"
+        className="mb-16"
       >
         <p className="mb-4 text-[10px] tracking-[0.55em] uppercase text-[#c8a96e]">
           Odabrana Putovanja
         </p>
         <h2 className="font-[family-name:var(--font-cormorant)] text-5xl md:text-6xl font-light text-white">
-          Doživite Iskustvo
+          Doživite iskustvo
         </h2>
       </motion.div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 0.4 } : {}}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-xs tracking-[0.3em] uppercase text-white/40 mb-16"
-      >
-        Avantura u Luksuznom Stilu
-      </motion.p>
 
       {inView && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

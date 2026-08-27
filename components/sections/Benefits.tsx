@@ -6,7 +6,7 @@ import { motion, useInView } from 'framer-motion';
 const BENEFITS = [
   {
     title: 'Najbolje avio ponude',
-    body: 'Pronalazimo povoljne letove i pažljivo birane aranžmane kako biste mogli putovati češće i otkrivati više – bez nepotrebnih troškova.',
+    body: 'Pronalazimo povoljne letove i pažljivo birane aranžmane kako biste mogli putovati češće i otkrivati više, bez nepotrebnih troškova.',
     icon: '◈',
     color: '#7EC8E3',
   },
@@ -18,7 +18,7 @@ const BENEFITS = [
   },
   {
     title: 'Pažljivo odabrane destinacije',
-    body: 'Od romantičnih vikenda u Parizu do mediteranskih bijegova i evropskih metropola – biramo destinacije koje vrijedi doživjeti.',
+    body: 'Od romantičnih vikenda u Parizu do mediteranskih bijegova i evropskih metropola, biramo destinacije koje vrijedi doživjeti.',
     icon: '◇',
     color: '#a8d8a8',
   },
@@ -44,7 +44,7 @@ export function Benefits() {
       >
         <p className="mb-4 text-[10px] tracking-[0.55em] uppercase text-[#c8a96e]">Zašto GoFly</p>
         <h2 className="font-[family-name:var(--font-cormorant)] text-5xl md:text-6xl font-light text-white">
-          Bolji Način Putovanja
+          Bolji način putovanja
         </h2>
       </motion.div>
 

@@ -8,10 +8,10 @@ export interface DestinationCard {
 }
 
 export const DESTINATION_CARDS: DestinationCard[] = [
+  { slug: 'rim', name: 'Rim', region: 'Italija', emoji: '🏛', transport: ['✈', '🚌', '🏨'], image: '/images/rim.jpg' },
   { slug: 'milano', name: 'Milano', region: 'Italija', emoji: '🛍', transport: ['✈', '🚌', '🏨'], image: '/images/milano.jpg' },
   { slug: 'barcelona', name: 'Barcelona', region: 'Španija', emoji: '🥂', transport: ['✈', '🚌', '🏨'], image: '/images/barcelona.jpg' },
   { slug: 'pariz', name: 'Pariz', region: 'Francuska', emoji: '🗼', transport: ['✈', '🚌', '🏨'], image: '/images/pariz.jpg' },
-  { slug: 'rim', name: 'Rim', region: 'Italija', emoji: '🏛', transport: ['✈', '🚌', '🏨'], image: '/images/rim.jpg' },
   { slug: 'berlin', name: 'Berlin', region: 'Njemačka', emoji: '🐻', transport: ['✈', '🚌', '🏨'], image: '/images/berlin.jpg' },
   { slug: 'bec', name: 'Beč', region: 'Austrija', emoji: '🎻', transport: ['✈', '🚌', '🏨'], image: '/images/bec.jpg' },
   { slug: 'prag', name: 'Prag', region: 'Češka', emoji: '🏰', transport: ['✈', '🚌', '🏨'], image: '/images/prag.jpg' },

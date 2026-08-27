@@ -23,8 +23,6 @@ export function Footer() {
             <a href="/destinacije" className="text-[9px] tracking-[0.4em] uppercase text-white/22 hover:text-white/55 transition-colors duration-300">Destinacije</a>
             <a href="/#benefits" className="text-[9px] tracking-[0.4em] uppercase text-white/22 hover:text-white/55 transition-colors duration-300">Iskustva</a>
             <a href="/#about" className="text-[9px] tracking-[0.4em] uppercase text-white/22 hover:text-white/55 transition-colors duration-300">O Nama</a>
-            <a href="/#global" className="text-[9px] tracking-[0.4em] uppercase text-white/22 hover:text-white/55 transition-colors duration-300">Blog</a>
-            <a href="/politika-privatnosti" className="text-[9px] tracking-[0.4em] uppercase text-white/22 hover:text-white/55 transition-colors duration-300">Politika Privatnosti</a>
           </div>
 
           {/* Partneri */}
