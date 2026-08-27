@@ -8,7 +8,9 @@
 
 # next.js
 /.next/
-/out/
+# /out/ is committed on purpose — it's the static export deployed
+# directly to cPanel (no Node.js/Passenger involved), rebuilt and
+# recommitted whenever the site changes.
 
 # production
 /build
