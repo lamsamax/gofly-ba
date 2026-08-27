@@ -37,7 +37,15 @@ if (!dev && !hasCompleteBuild()) {
   const nextDir = path.join(dir, '.next');
   clearBuild(nextDir);
   try {
-    execSync('npx next build', { cwd: dir, stdio: 'inherit' });
+    execSync('npx next build', {
+      cwd: dir,
+      stdio: 'inherit',
+      // Keep the build's own thread usage minimal too, on top of
+      // experimental.cpus:1 in next.config.js — shared hosting can
+      // hit its process/thread cap (pthread_create: Resource
+      // temporarily unavailable) otherwise.
+      env: { ...process.env, UV_THREADPOOL_SIZE: '1' },
+    });
   } catch (err) {
     clearBuild(nextDir);
     throw err;
