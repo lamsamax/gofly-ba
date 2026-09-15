@@ -69,7 +69,7 @@ export function Fleet() {
   const inView = useInView(ref, { once: true, margin: '-5%' });
 
   return (
-    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-40">
+    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-16 sm:py-24 md:py-40">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

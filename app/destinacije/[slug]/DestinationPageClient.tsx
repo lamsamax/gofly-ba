@@ -54,11 +54,13 @@ export function DestinationPageClient({ slug }: { slug: string }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/30 to-black/10" />
         <div className="absolute bottom-0 left-0 right-0 px-8 md:px-16 pb-12">
-          {destCard?.emoji && <p className="text-5xl mb-4 opacity-60">{destCard.emoji}</p>}
           <p className="text-[10px] tracking-[0.6em] uppercase text-[#c8a96e] mb-3">{dest.region}</p>
-          <h1 className="font-[family-name:var(--font-cormorant)] text-6xl md:text-8xl font-light text-white leading-none mb-6">
-            {dest.name}
-          </h1>
+          <div className="flex items-center gap-3 md:gap-4 mb-6">
+            {destCard?.emoji && <span className="text-3xl md:text-5xl opacity-60 flex-shrink-0">{destCard.emoji}</span>}
+            <h1 className="font-[family-name:var(--font-cormorant)] text-6xl md:text-8xl font-light text-white leading-none">
+              {dest.name}
+            </h1>
+          </div>
           <div className="flex gap-2">
             {(destCard?.transport || []).map((t, i) => (
               <div key={i} className="w-9 h-9 rounded-full flex items-center justify-center text-base"

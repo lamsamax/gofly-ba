@@ -29,7 +29,7 @@ export function Stats() {
   const inView = useInView(ref, { once: true, margin: '-10%' });
 
   return (
-    <section ref={ref} className="bg-[#080808] border-t border-white/[0.04] px-8 md:px-24 py-24">
+    <section ref={ref} className="bg-[#080808] border-t border-white/[0.04] px-8 md:px-24 py-12 sm:py-16 md:py-24">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-0 sm:divide-x divide-white/[0.06]">
         {STATS.map((stat, i) => (
           <motion.div

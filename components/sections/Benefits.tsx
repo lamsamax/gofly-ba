@@ -35,7 +35,7 @@ export function Benefits() {
   const inView = useInView(ref, { once: true, margin: '-8%' });
 
   return (
-    <section id="benefits" ref={ref} className="bg-[#050505] px-8 md:px-24 py-40 border-t border-white/[0.04]">
+    <section id="benefits" ref={ref} className="bg-[#050505] px-8 md:px-24 py-16 sm:py-24 md:py-40 border-t border-white/[0.04]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

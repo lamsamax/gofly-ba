@@ -2,7 +2,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#050505] border-t border-white/[0.04] px-8 md:px-24 py-16">
+    <footer className="bg-[#050505] border-t border-white/[0.04] px-8 md:px-24 py-10 md:py-16">
       <div className="flex flex-col gap-12">
 
         {/* Gornji dio */}

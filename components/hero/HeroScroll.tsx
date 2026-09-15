@@ -31,10 +31,12 @@ export function HeroScroll() {
 
     gsap.set(heroCopy, { y: 30, opacity: 0 });
 
+    const scrollMultiplier = window.innerWidth < 640 ? 1.8 : 3;
+
     const trigger = ScrollTrigger.create({
       trigger: hero,
       start: 'top top',
-      end: `+=${window.innerHeight * 3}px`,
+      end: `+=${window.innerHeight * scrollMultiplier}px`,
       pin: true,
       pinSpacing: true,
       scrub: 1.2,
@@ -92,7 +94,7 @@ export function HeroScroll() {
           width: '100%',
           height: '100svh',
           overflow: 'hidden',
-          backgroundColor: '#1a3c5a'
+          backgroundColor: '#050505'
         }}
       >
         {/* SLOJ 1: Oblaci */}
