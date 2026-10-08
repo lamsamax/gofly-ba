@@ -12,8 +12,34 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'GoFly – Avanturistička Putovanja Širom Svijeta',
+  metadataBase: new URL('https://gofly.ba'),
+  title: {
+    default: 'GoFly – Avanturistička Putovanja Širom Svijeta',
+    template: '%s | GoFly',
+  },
   description: 'Odabrana avanturistička putovanja u 150+ destinacija širom svijeta. Fly More. Pay Less.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'bs_BA',
+    siteName: 'GoFly',
+    title: 'GoFly – Avanturistička Putovanja Širom Svijeta',
+    description: 'Odabrana avanturistička putovanja u 150+ destinacija širom svijeta. Fly More. Pay Less.',
+    url: 'https://gofly.ba',
+    images: ['/images/logo.png'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'GoFly – Avanturistička Putovanja Širom Svijeta',
+    description: 'Odabrana avanturistička putovanja u 150+ destinacija širom svijeta. Fly More. Pay Less.',
+    images: ['/images/logo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
