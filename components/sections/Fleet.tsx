@@ -69,13 +69,13 @@ export function Fleet() {
   const inView = useInView(ref, { once: true, margin: '-5%' });
 
   return (
-    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-16 sm:py-24 md:py-40">
+    <section id="fleet" ref={ref} className="bg-[#050505] px-8 md:px-24 py-10 sm:py-24 md:py-40">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="mb-16"
+        className="mb-8 sm:mb-16"
       >
         <p className="mb-4 text-[10px] tracking-[0.55em] uppercase text-[#c8a96e]">
           Odabrana Putovanja
@@ -97,7 +97,7 @@ export function Fleet() {
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="mt-12 text-center"
+        className="mt-8 sm:mt-12 text-center"
       >
         <Link href="/destinacije"
           className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-[10px] tracking-[0.4em] uppercase transition-all duration-300 hover:bg-[rgba(200,169,110,0.08)]"

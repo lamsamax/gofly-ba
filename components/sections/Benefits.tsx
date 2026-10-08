@@ -35,12 +35,12 @@ export function Benefits() {
   const inView = useInView(ref, { once: true, margin: '-8%' });
 
   return (
-    <section id="benefits" ref={ref} className="bg-[#050505] px-8 md:px-24 py-16 sm:py-24 md:py-40 border-t border-white/[0.04]">
+    <section id="benefits" ref={ref} className="bg-[#050505] px-8 md:px-24 py-10 sm:py-24 md:py-40 border-t border-white/[0.04]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="mb-20"
+        className="mb-10 sm:mb-20"
       >
         <p className="mb-4 text-[10px] tracking-[0.55em] uppercase text-[#c8a96e]">Zašto GoFly</p>
         <h2 className="font-[family-name:var(--font-cormorant)] text-5xl md:text-6xl font-light text-white">
