@@ -143,7 +143,7 @@ export function DestinationPageClient({ slug }: { slug: string }) {
           </div>
           {formUrl ? (
             <a href={formUrl} target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full text-[10px] tracking-[0.3em] uppercase text-[#050505] font-medium transition-all duration-300 hover:opacity-90"
+              className="inline-block text-center px-5 py-2 rounded-full text-[10px] tracking-[0.3em] uppercase text-[#050505] font-medium transition-all duration-300 hover:opacity-90"
               style={{ background: '#c8a96e' }}>
               Prijavi Se →
             </a>
@@ -224,7 +224,7 @@ export function DestinationPageClient({ slug }: { slug: string }) {
               </div>
               {formUrl ? (
                 <a href={formUrl} target="_blank" rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
+                  className="inline-block text-center px-8 py-4 rounded-full text-sm font-medium tracking-widest uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
                   style={{ background: '#c8a96e' }}>
                   Prijavi Se →
                 </a>
@@ -237,7 +237,7 @@ export function DestinationPageClient({ slug }: { slug: string }) {
               )}
               {pdfUrl && (
                 <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
-                  className="px-6 py-4 rounded-full text-xs font-medium tracking-widest uppercase text-[#c8a96e] border transition-all duration-300 hover:bg-[rgba(200,169,110,0.08)]"
+                  className="inline-block text-center px-6 py-4 rounded-full text-xs font-medium tracking-widest uppercase text-[#c8a96e] border transition-all duration-300 hover:bg-[rgba(200,169,110,0.08)]"
                   style={{ borderColor: 'rgba(200,169,110,0.35)' }}>
                   📄 {pdfLabel}
                 </a>
@@ -489,7 +489,7 @@ export function DestinationPageClient({ slug }: { slug: string }) {
           <div className="mt-16 text-center">
             {formUrl ? (
               <a href={formUrl} target="_blank" rel="noopener noreferrer"
-                className="px-12 py-5 rounded-full text-sm font-medium tracking-[0.3em] uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
+                className="inline-block text-center px-12 py-5 rounded-full text-sm font-medium tracking-[0.3em] uppercase text-[#050505] transition-all duration-300 hover:opacity-90"
                 style={{ background: '#c8a96e' }}>
                 Prijavi Se Na Putovanje →
               </a>
