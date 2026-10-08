@@ -141,19 +141,6 @@ export function DestinationPageClient({ slug }: { slug: string }) {
             <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
             <Link href="/#benefits" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">Iskustvo</Link>
           </div>
-          {formUrl ? (
-            <a href={formUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block text-center px-5 py-2 rounded-full text-[10px] tracking-[0.3em] uppercase text-[#050505] font-medium transition-all duration-300 hover:opacity-90"
-              style={{ background: '#c8a96e' }}>
-              Prijavi Se →
-            </a>
-          ) : (
-            <button onClick={() => setFormOpen(true)}
-              className="px-5 py-2 rounded-full text-[10px] tracking-[0.3em] uppercase text-[#050505] font-medium transition-all duration-300 hover:opacity-90"
-              style={{ background: '#c8a96e' }}>
-              Prijavi Se →
-            </button>
-          )}
         </div>
       </nav>
 
