@@ -55,17 +55,19 @@ export function Benefits() {
             initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, delay: i * 0.1, ease: [0.76, 0, 0.24, 1] }}
-            className="group bg-[#050505] p-12 hover:bg-white/[0.02] transition-colors duration-500"
+            className="group bg-[#050505] p-8 sm:p-12 hover:bg-white/[0.02] transition-colors duration-500 flex items-start gap-5 sm:gap-6"
           >
-            <div className="w-12 h-12 rounded-full flex items-center justify-center mb-8 text-xl"
+            <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-xl"
               style={{ background: `${benefit.color}15`, color: benefit.color }}>
               {benefit.icon}
             </div>
-            <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-light text-white mb-4">
-              {benefit.title}
-            </h3>
-            <div className="h-px w-10 mb-6" style={{ background: benefit.color }} />
-            <p className="text-sm leading-loose text-white/42">{benefit.body}</p>
+            <div>
+              <h3 className="font-[family-name:var(--font-cormorant)] text-3xl font-light text-white mb-4">
+                {benefit.title}
+              </h3>
+              <div className="h-px w-10 mb-6" style={{ background: benefit.color }} />
+              <p className="text-sm leading-loose text-white/42">{benefit.body}</p>
+            </div>
           </motion.div>
         ))}
       </div>
