@@ -70,19 +70,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
             var intro = document.getElementById('intro-screen');
-            var seen = sessionStorage.getItem('gofly-intro-seen');
+            if (!intro) return;
+
+            function hide() {
+              intro.style.animation = 'none';
+              intro.style.display = 'none';
+            }
+
+            // sessionStorage can throw (private mode, some in-app browsers
+            // like Viber/Instagram) — never let that leave the intro
+            // overlay stuck on screen blocking every click on the page.
+            var seen = false;
+            try { seen = !!sessionStorage.getItem('gofly-intro-seen'); } catch (e) {}
 
             if (seen || window.location.pathname !== '/') {
-              if (intro) {
-                intro.style.animation = 'none';
-                intro.style.display = 'none';
-              }
-            } else {
-              setTimeout(function() {
-                sessionStorage.setItem('gofly-intro-seen', '1');
-                if (intro) intro.style.display = 'none';
-              }, 2900);
+              hide();
+              return;
             }
+
+            setTimeout(function() {
+              try { sessionStorage.setItem('gofly-intro-seen', '1'); } catch (e) {}
+              hide();
+            }, 2900);
+
+            // Unconditional safety net in case anything above misbehaves.
+            setTimeout(hide, 4000);
           })();
         `}} />
 

@@ -64,9 +64,11 @@ export function Navbar() {
           </div>
 
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-1"
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="md:hidden flex flex-col items-center justify-center gap-1.5 w-11 h-11 -mr-2"
             aria-label="Meni"
+            aria-expanded={menuOpen}
           >
             <span className={`h-px w-6 bg-white/70 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
             <span className={`h-px w-4 bg-white/70 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
