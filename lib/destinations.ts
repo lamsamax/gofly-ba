@@ -212,7 +212,7 @@ export const DESTINATIONS: Record<string, Destination> = {
     difficulty: '★★★☆☆',
     difficultyFun: '★★★★★',
     difficultyActivity: '★★★★☆',
-    hasKids: 'NE',
+    hasKids: 'DA',
     route: 'Rim – Vatikan – Napulj',
     story: {
       quote: 'Vrijeme je za Rim! Grad historije, dobre hrane i umjetnosti koje morate doživjeti barem jednom.',
