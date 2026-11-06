@@ -70,13 +70,15 @@ export function Navbar() {
             aria-label="Meni"
             aria-expanded={menuOpen}
           >
-            <span className={`h-px w-6 bg-white/70 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`h-px w-6 bg-white/70 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
             <span className={`h-px w-4 bg-white/70 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`h-px w-6 bg-white/70 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`h-px w-6 bg-white/70 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
           </button>
         </motion.nav>
-      </div>
 
+      {/* Rendered inside the fixed wrapper (not as a sibling of the pinned
+          hero) — GSAP's pin moves the hero into a pin-spacer, and React
+          inserting a node next to it crashes with an insertBefore error. */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -84,7 +86,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-20 left-3 right-3 z-40 rounded-2xl p-8 flex flex-col gap-6"
+            className="md:hidden absolute top-full left-0 right-0 mt-2 rounded-2xl p-8 flex flex-col gap-6"
             style={{
               background: 'rgba(8,8,8,0.95)',
               backdropFilter: 'blur(20px)',
@@ -108,6 +110,7 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </>
   );
 }

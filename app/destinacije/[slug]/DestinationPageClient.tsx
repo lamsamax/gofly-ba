@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Destination, DESTINATIONS } from '@/lib/destinations';
 import { DESTINATION_CARDS } from '@/lib/destination-cards';
 import { GoFlyWordmark } from '@/components/ui/Logo';
+import { MobileNavMenu } from '@/components/ui/MobileNavMenu';
 import Link from 'next/link';
 
 function ActivityIcon({ icon }: { icon: string }) {
@@ -49,7 +50,10 @@ export function DestinationPageClient({ slug }: { slug: string }) {
         <div className="flex items-center justify-between px-5 py-3 rounded-2xl"
           style={{ background: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(20px)', border: '1px solid rgba(200,169,110,0.12)' }}>
           <Link href="/"><GoFlyWordmark /></Link>
-          <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">← Destinacije</Link>
+          <div className="flex items-center gap-4">
+            <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">← Destinacije</Link>
+            <MobileNavMenu />
+          </div>
         </div>
       </nav>
 
@@ -141,6 +145,7 @@ export function DestinationPageClient({ slug }: { slug: string }) {
             <Link href="/destinacije" className="text-[10px] tracking-[0.35em] uppercase text-[#c8a96e]">Destinacije</Link>
             <Link href="/#benefits" className="text-[10px] tracking-[0.35em] uppercase text-white/40 hover:text-white/80 transition-colors duration-300">Iskustvo</Link>
           </div>
+          <MobileNavMenu />
         </div>
       </nav>
 

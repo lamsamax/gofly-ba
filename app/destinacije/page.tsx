@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { GoFlyWordmark } from '@/components/ui/Logo';
+import { MobileNavMenu } from '@/components/ui/MobileNavMenu';
 import { DESTINATION_CARDS } from '@/lib/destination-cards';
 
 type DestCard = { slug: string; name: string; region: string; emoji: string; transport: string[]; image: string; };
@@ -82,6 +83,7 @@ export default function DestinacijePage() {
           <a href="tel:+38733533303" className="hidden md:block text-[10px] tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors duration-300">
             +387 33 533 303
           </a>
+          <MobileNavMenu />
         </div>
       </nav>
 

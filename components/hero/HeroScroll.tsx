@@ -84,7 +84,9 @@ export function HeroScroll() {
   }, []);
 
   return (
-    <>
+    // Stable wrapper: GSAP's pin wraps the <section> in a pin-spacer, so keep
+    // that DOM mutation contained inside a node React owns.
+    <div>
       <section
         ref={heroRef}
         className="hero"
@@ -225,6 +227,6 @@ export function HeroScroll() {
         </div>
 
       </section>
-    </>
+    </div>
   );
 }
