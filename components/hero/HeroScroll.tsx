@@ -86,7 +86,7 @@ export function HeroScroll() {
   return (
     // Stable wrapper: GSAP's pin wraps the <section> in a pin-spacer, so keep
     // that DOM mutation contained inside a node React owns.
-    <div>
+    <div style={{ position: 'relative' }}>
       <section
         ref={heroRef}
         className="hero"
@@ -227,6 +227,19 @@ export function HeroScroll() {
         </div>
 
       </section>
+
+      {/* SPOJ oblaka i crne sekcije: kratak fade preko samog ruba hero sekcije.
+          Sloj neba je skaliran (GPU sloj) pa mu rub "procuri" ~1px ispod hero-a
+          i ostane vidljiva linija — ovaj sloj ide par px preko ruba i prekrije je.
+          Kad pin završi, dno hero-a je tačno na dnu ovog wrappera. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute', left: 0, right: 0, bottom: '-6px',
+          height: 'calc(15svh + 6px)', zIndex: 30, pointerEvents: 'none',
+          background: 'linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.35) 35%, rgba(5,5,5,0.75) 65%, #050505 calc(100% - 6px), #050505 100%)',
+        }}
+      />
     </div>
   );
 }
